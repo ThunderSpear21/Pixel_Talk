@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_chat/screens/home_screen.dart';
 
 import '../../main.dart';
 
@@ -21,21 +22,26 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            top: mq.height * 0.15,
+          AnimatedPositioned(
+            top: mq.height * 0.20,
             left: mq.width * 0.25,
             width: mq.width * 0.5,
+            duration: const Duration(milliseconds: 800),
             child: Image.asset('images/icon.png'),
           ),
-          Positioned(
+          AnimatedPositioned(
             bottom: mq.height * 0.15,
             left: mq.width * 0.08,
             width: mq.width * 0.84,
             height: mq.height * 0.07,
+            duration: const Duration(milliseconds: 800),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()));
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 elevation: 2,
               ),
               label: const Text(
