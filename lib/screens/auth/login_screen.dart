@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_chat/screens/home_screen.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../main.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,6 +12,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  googleloginbutton() {
+    signInWithGoogle().then((user) {
+      Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
+          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+    });
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -18,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title: const Text("Welcome to Lets Chat"),
+        title: const Text("Welcome to Pixel Talk"),
       ),
       body: Stack(
         children: [
@@ -37,8 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             duration: const Duration(milliseconds: 800),
             child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const HomeScreen()));
+                googleloginbutton();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 255, 255, 255),

@@ -12,7 +12,20 @@
           "package_name": "com.example.lets_chat"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "521181472802-3smq2rbgrjoh0huqgj26hcb0msit5dqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lets_chat",
+            "certificate_hash": "b7e8bebd2f2ab567c10855b87bf96363676d4c08"
+          }
+        },
+        {
+          "client_id": "521181472802-4salqamc2oh7v3dk37ioom398s8m6ik0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDm4jKksvYnw1FDLSTZenud5-iVJkaV9CI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521181472802-4salqamc2oh7v3dk37ioom398s8m6ik0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "521181472802-r4r4rmqeiv9airl733821anqomodfqm3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.letsChat"
+              }
+            }
+          ]
         }
       }
     }

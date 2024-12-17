@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(CupertinoIcons.home),
-        title: const Text("Lets Chat"),
+        title: const Text("Pixel Talk"),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert))

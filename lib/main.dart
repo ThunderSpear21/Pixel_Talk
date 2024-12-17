@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/screens/auth/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:lets_chat/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 //import 'package:lets_chat/screens/home_screen.dart';
 late Size mq;
 void main() {
-  initializeFirebase();
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((value) {
+    initializeFirebase();
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +36,7 @@ class MyApp extends StatelessWidget {
             ),
             backgroundColor: Colors.white54,
           )),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

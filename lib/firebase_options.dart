@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '521181472802',
     projectId: 'pixel-talk-62697',
     storageBucket: 'pixel-talk-62697.firebasestorage.app',
+    androidClientId: '521181472802-3smq2rbgrjoh0huqgj26hcb0msit5dqr.apps.googleusercontent.com',
+    iosClientId: '521181472802-r4r4rmqeiv9airl733821anqomodfqm3.apps.googleusercontent.com',
     iosBundleId: 'com.example.letsChat',
   );
+
 }
