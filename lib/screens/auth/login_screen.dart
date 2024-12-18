@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lets_chat/api/apis.dart';
+import 'package:lets_chat/helper/dialogs.dart';
 import 'package:lets_chat/screens/home_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../main.dart';
@@ -13,29 +17,42 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   googleloginbutton() {
+    Dialogs.showProgressBar(context);
     signInWithGoogle().then((user) {
-      Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
-          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+      if (user != null) {
+        Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()));
+      }
     });
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    try {
+      await InternetAddress.lookup('google.com');
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+      // Once signed in, return the UserCredential
+      return await Apis.auth.signInWithCredential(credential);
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      Dialogs.showSnackbar(context, 'Check Internet Connection');
+      return null;
+    }
   }
 
   @override
