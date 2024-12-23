@@ -18,14 +18,23 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   googleloginbutton() {
     Dialogs.showProgressBar(context);
-    signInWithGoogle().then((user) {
+    signInWithGoogle().then((user) async {
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
       if (user != null) {
-        Navigator.pushReplacement(
-            // ignore: use_build_context_synchronously
-            context,
-            MaterialPageRoute(builder: (_) => const HomeScreen()));
+        if (await (Apis.userExists(user))) {
+          Navigator.pushReplacement(
+              // ignore: use_build_context_synchronously
+              context,
+              MaterialPageRoute(builder: (_) => const HomeScreen()));
+        } else {
+          await Apis.createUser().then((value) {
+            Navigator.pushReplacement(
+                // ignore: use_build_context_synchronously
+                context,
+                MaterialPageRoute(builder: (_) => const HomeScreen()));
+          });
+        }
       }
     });
   }
